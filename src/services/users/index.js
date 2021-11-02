@@ -1,12 +1,13 @@
 import express from 'express'
 import createHttpError from 'http-errors'
 import UserModel from './schema.js'
+import { basicAuthMiddleware } from '../auth/basic.js'
 
 
 
 const userRouter = express.Router()
 
-userRouter.get("/", async(req, res , next) => {
+userRouter.get("/", basicAuthMiddleware, async(req, res , next) => {
     try {
         const users = await UserModel.find()
         res.send(users)

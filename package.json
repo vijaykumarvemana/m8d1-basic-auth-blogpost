@@ -23,6 +23,7 @@
     "nodemon": "^2.0.13"
   },
   "dependencies": {
+    "atob": "^2.1.2",
     "bcrypt": "^5.0.1",
     "cors": "^2.8.5",
     "dotenv": "^10.0.0",

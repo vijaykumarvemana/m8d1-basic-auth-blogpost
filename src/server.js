@@ -6,7 +6,7 @@ import reviewRouter  from './services/reviews/index.js'
 import authorRouter from './services/authors/index.js'
 import userRouter from './services/users/index.js'
 import listEndpoints from 'express-list-endpoints'
-import { notFoundHandler, badRequestHandler, genericErrorHandler } from './errorhandlers.js'
+import { notFoundHandler, badRequestHandler, genericErrorHandler, unauthorizedHandler, forbiddenHandler} from './errorhandlers.js'
 
 
 const server = express()
@@ -24,6 +24,7 @@ server.use("/users", userRouter)
 
 server.use(notFoundHandler)
 server.use(badRequestHandler)
+server.use(unauthorizedHandler)
 server.use(genericErrorHandler)
 
 
