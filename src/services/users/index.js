@@ -16,7 +16,7 @@ userRouter.get("/", basicAuthMiddleware, async(req, res , next) => {
     }
 })
 
-userRouter.get("/:userID", async(req, res , next) => {
+userRouter.get("/:userID", basicAuthMiddleware, async(req, res , next) => {
     try {
         const userId = req.params.userID
         const user = await UserModel.findById(userId)
@@ -30,7 +30,7 @@ userRouter.get("/:userID", async(req, res , next) => {
     }
 })
 
-userRouter.post("/", async(req, res , next) => {
+userRouter.post("/", basicAuthMiddleware, async(req, res , next) => {
     try {
         const user = new UserModel(req.body)
         const {_id} = await user.save()
@@ -41,7 +41,7 @@ userRouter.post("/", async(req, res , next) => {
     }
 })
 
-userRouter.put("/:userID", async(req, res , next) => {
+userRouter.put("/:userID", basicAuthMiddleware, async(req, res , next) => {
     try {
         const userId = req.params.userID
         const modifiedUser = await UserModel.findByIdAndUpdate(userId, req.body, {
@@ -59,7 +59,7 @@ userRouter.put("/:userID", async(req, res , next) => {
     }
 })
 
-userRouter.delete("/:userID", async(req, res , next) => {
+userRouter.delete("/:userID", basicAuthMiddleware,  async(req, res , next) => {
     try {
         const userId = req.params.userID
         const deletedUser = await UserModel.findByIdAndDelete(userId)

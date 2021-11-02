@@ -3,6 +3,7 @@ import createHttpError from 'http-errors'
 import BlogPostModel from  '../services/schema.js'
 import ReviewModel from '../services/reviews/schema.js'
 import AuthorsModel from '../services/authors/schema.js'
+import { basicAuthMiddleware } from './auth/basic.js'
 
 
 
@@ -76,6 +77,16 @@ blogsRouter.delete("/:blogID", async(req, res , next) => {
     } catch (error) {
       next(error)  
     }
+})
+
+blogsRouter.get("/me/stories", basicAuthMiddleware, async(req, res, next) => {
+  try {
+    const blogPosts = await BlogPostModel.find()
+    .populate({path: "users", select: "first_name"})  
+    res.send( blogPosts)
+} catch (error) {
+  next(error)
+}
 })
 
 blogsRouter.post("/:blogID/reviews", async (req, res, next) => {
